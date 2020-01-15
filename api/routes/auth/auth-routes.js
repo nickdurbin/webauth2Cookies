@@ -20,6 +20,7 @@ router.post("/login", async (req, res, next) => {
     const passwordValid = await bcrypt.compare(password, user.password)
 
     if (user && passwordValid) {
+      req.session.user = user
       res.status(200).json({
         message: `Welcome ${user.username}!`,
       })
@@ -30,6 +31,20 @@ router.post("/login", async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+router.get("/logout", async (req, res, next) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(403).json({ message: "There was an error logging out. Please try again!"});
+      } else {
+        res.status(200).json({ message: "You have successfully logged out!" });
+      }
+    });
+  } else {
+    res.status(200).json({ message: "You are already logged out!"})
   }
 })
 
