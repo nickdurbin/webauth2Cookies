@@ -16,7 +16,6 @@ server.use((req, res, next) => {
 })
 
 server.use((err, req, res, next) => {
-  console.log(err)
   res.status(500).json({ message: "The server has failed you. I would suggest trying again later."})
 })
 
