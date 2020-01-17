@@ -2,6 +2,8 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
 const session = require('express-session');
+const KnexSessionStore = require("connect-session-knex")(session)
+const db = require('../../data/db-config')
 
 const sessionConfig = {
   name: 'notsession', // default is connect.sid
@@ -13,6 +15,10 @@ const sessionConfig = {
   }, // 1 day in milliseconds
   resave: false,
   saveUninitialized: false,
+  store: new KnexSessionStore({
+    knex: db, // configured instance of knex
+    createtable: true, // if the table does not exist in the db, create it automatically
+  }),
 }
 
 module.exports = server => {
