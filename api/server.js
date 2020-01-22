@@ -8,7 +8,7 @@ middleware(server)
 routes(server)
 
 server.get("/", (req, res) => {
-  server.send("<h2>I am your server and I am alive!</h2>")
+  res.send("<h2>I am your server and I am alive!</h2>")
 })
 
 server.use((req, res, next) => {
