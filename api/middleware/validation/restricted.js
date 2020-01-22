@@ -1,7 +1,7 @@
 const Users = require("../../routes/users/user-model")
 
 async function restricted(req, res, next) {
-  if (req.session && req.session.userId) {
+  if (req.session && req.session.user) {
     next();
   } else {
     await res.status(401).json({ message: 'you shall not pass!!' });
