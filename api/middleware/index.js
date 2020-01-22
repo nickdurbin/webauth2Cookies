@@ -22,7 +22,7 @@ const sessionConfig = {
 }
 
 module.exports = server => {
-  server.use(morgan())
+  server.use(morgan("short"))
   server.use(helmet())
   server.use(session(sessionConfig))
   server.use(cors())
